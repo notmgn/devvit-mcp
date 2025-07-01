@@ -5,7 +5,7 @@ on:
 
 jobs:
   release:
-    name: Release to npm and GitHub
+    name: Release to GitHub
     runs-on: ubuntu-latest
     # Permissions needed for semantic-release to commit/tag/release
     permissions:
@@ -29,7 +29,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '>=20.0.0' # Match engines requirement in package.json
-          registry-url: 'https://registry.npmjs.org' # Specify npm registry
           cache: 'npm'
 
       - name: Install dependencies
@@ -43,7 +42,6 @@ jobs:
         uses: cycjimmy/semantic-release-action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   docker_publish:
     name: Build and Push Docker Image to GHCR
